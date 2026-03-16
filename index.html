@@ -1,76 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>CyberShop - Free Hacker Store</title>
+<title>CyberShop - Free Demo E-commerce</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{
-background:#000;
-color:#00ff9c;
-font-family:monospace;
-margin:0;
-padding:0;
-}
-header{
-background:#111;
-padding:15px;
-text-align:center;
-font-size:24px;
-font-weight:bold;
-}
-.products{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-padding:20px;
-}
-.product{
-background:#111;
-border:1px solid #00ff9c;
-border-radius:10px;
-width:200px;
-padding:15px;
-text-align:center;
-}
-button{
-padding:8px 12px;
-margin-top:10px;
-cursor:pointer;
-background:#00ff9c;
-color:#000;
-border:none;
-border-radius:5px;
-font-weight:bold;
-}
-#cart{
-position:fixed;
-top:10px;
-right:10px;
-background:#111;
-border:1px solid #00ff9c;
-padding:10px;
-border-radius:5px;
-cursor:pointer;
-}
-#cartItems{
-position:fixed;
-top:50px;
-right:10px;
-background:#000;
-border:1px solid #00ff9c;
-padding:10px;
-border-radius:5px;
-display:none;
-width:250px;
-max-height:400px;
-overflow:auto;
-}
+body{margin:0;font-family:sans-serif;background:#fff;color:#000;}
+header{background:#2874f0;color:#fff;padding:15px;text-align:center;font-size:24px;font-weight:bold;}
+.products{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px;}
+.product{border:1px solid #ddd;border-radius:10px;width:200px;text-align:center;padding:10px;transition:0.3s;}
+.product:hover{box-shadow:0px 0px 10px #2874f0;}
+button{padding:8px 12px;margin-top:10px;cursor:pointer;background:#2874f0;color:#fff;border:none;border-radius:5px;}
+#cart{position:fixed;top:10px;right:10px;background:#2874f0;color:#fff;padding:10px;border-radius:5px;cursor:pointer;}
+#cartItems{position:fixed;top:50px;right:10px;background:#fff;border:1px solid #2874f0;padding:10px;border-radius:5px;display:none;width:250px;max-height:400px;overflow:auto;}
 </style>
 </head>
 <body>
 
-<header>CyberShop 🛒</header>
+<header>CyberShop Demo 🛒</header>
 
 <div id="cart">Cart (0)</div>
 <div id="cartItems"></div>
@@ -78,80 +24,26 @@ overflow:auto;
 <div class="products" id="products"></div>
 
 <script>
-const productsData=[
-{name:"Hacker T-Shirt",price:499},
-{name:"Cyber Cap",price:299},
-{name:"Dark Hoodie",price:899},
-{name:"Gaming Mouse",price:1299},
-{name:"Mechanical Keyboard",price:1999},
-{name:"USB Security Key",price:599},
-{name:"Cyber Glasses",price:399},
-{name:"LED Strip",price:699}
+const products=[
+{name:"Smartphone",price:9999,img:"https://via.placeholder.com/150"},
+{name:"Laptop",price:39999,img:"https://via.placeholder.com/150"},
+{name:"Headphones",price:1999,img:"https://via.placeholder.com/150"},
+{name:"Smartwatch",price:4999,img:"https://via.placeholder.com/150"},
+{name:"Backpack",price:1499,img:"https://via.placeholder.com/150"},
+{name:"Shoes",price:2499,img:"https://via.placeholder.com/150"}
 ];
 
 let cart=[];
-function saveCart(){
-localStorage.setItem("cart",JSON.stringify(cart));
-updateCartCount();
-}
-
-function loadCart(){
-let saved=localStorage.getItem("cart");
-if(saved) cart=JSON.parse(saved);
-updateCartCount();
-}
-
-function updateCartCount(){
-document.getElementById("cart").innerText=`Cart (${cart.length})`;
-}
-
-function addToCart(index){
-cart.push(productsData[index]);
-saveCart();
-alert(productsData[index].name+" added to cart!");
-}
-
-function showCart(){
-const cartDiv=document.getElementById("cartItems");
-cartDiv.innerHTML="";
-if(cart.length===0){
-cartDiv.innerHTML="<p>Cart is empty</p>";
-}else{
-cart.forEach((item,i)=>{
-cartDiv.innerHTML+=`<p>${item.name} - ₹${item.price} <button onclick="removeItem(${i})">Remove</button></p>`;
-});
-cartDiv.innerHTML+=`<hr><button onclick="checkout()">Checkout</button>`;
-}
-cartDiv.style.display=cartDiv.style.display==="none"?"block":"none";
-}
-
-function removeItem(i){
-cart.splice(i,1);
-saveCart();
-showCart();
-}
-
-function checkout(){
-alert("🎉 Thank you! Checkout simulation complete.\nTotal: ₹"+cart.reduce((a,b)=>a+b.price,0));
-cart=[];
-saveCart();
-showCart();
-}
-
-function renderProducts(){
-const container=document.getElementById("products");
-productsData.forEach((p,i)=>{
-let div=document.createElement("div");
-div.className="product";
-div.innerHTML=`<h4>${p.name}</h4><p>Price: ₹${p.price}</p><button onclick="addToCart(${i})">Add to Cart</button>`;
-container.appendChild(div);
-});
-}
-
+function saveCart(){localStorage.setItem("cart",JSON.stringify(cart));updateCartCount();}
+function loadCart(){let saved=localStorage.getItem("cart");if(saved) cart=JSON.parse(saved);updateCartCount();}
+function updateCartCount(){document.getElementById("cart").innerText=`Cart (${cart.length})`;}
+function addToCart(i){cart.push(products[i]);saveCart();alert(products[i].name+" added to cart!");}
+function showCart(){const div=document.getElementById("cartItems");div.innerHTML="";if(cart.length===0){div.innerHTML="<p>Cart is empty</p>";}else{cart.forEach((item,i)=>{div.innerHTML+=`<p>${item.name} - ₹${item.price} <button onclick="removeItem(${i})">Remove</button></p>`;});div.innerHTML+=`<hr><button onclick="checkout()">Checkout</button>`;}div.style.display=div.style.display==="none"?"block":"none";}
+function removeItem(i){cart.splice(i,1);saveCart();showCart();}
+function checkout(){alert("🎉 Thank you! Checkout simulation complete.\nTotal: ₹"+cart.reduce((a,b)=>a+b.price,0));cart=[];saveCart();showCart();}
+function renderProducts(){const container=document.getElementById("products");products.forEach((p,i)=>{let div=document.createElement("div");div.className="product";div.innerHTML=`<img src="${p.img}" width="150"><h4>${p.name}</h4><p>Price: ₹${p.price}</p><button onclick="addToCart(${i})">Add to Cart</button>`;container.appendChild(div);});}
 document.getElementById("cart").addEventListener("click",showCart);
-
-renderProducts();
-loadCart();
+renderProducts();loadCart();
 </script>
 
 </body>

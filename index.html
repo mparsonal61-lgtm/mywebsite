@@ -1,39 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hacker Style Website</title>
+<title>Password Generator</title>
 
 <style>
 body{
-background:black;
-color:#00ff00;
-font-family:monospace;
+font-family:Arial;
 text-align:center;
+background:#111;
+color:white;
 padding-top:100px;
 }
 
-h1{
-font-size:45px;
-animation: glow 2s infinite alternate;
-}
-
-@keyframes glow{
-from{ text-shadow:0 0 10px #00ff00;}
-to{ text-shadow:0 0 30px #00ff00;}
-}
-
 button{
-background:black;
-color:#00ff00;
-border:1px solid #00ff00;
 padding:10px 20px;
 font-size:18px;
 cursor:pointer;
-}
-
-button:hover{
-background:#00ff00;
-color:black;
 }
 </style>
 
@@ -41,15 +23,31 @@ color:black;
 
 <body>
 
-<h1>WELCOME TO MY WEBSITE</h1>
+<h1>Password Generator Tool</h1>
 
-<p>This site is created from my phone 🚀</p>
+<p>Click button to generate strong password</p>
 
-<button onclick="alert('Hello from my website!')">
-Click Me
-</button>
+<button onclick="generate()">Generate Password</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+function generate(){
+
+let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
+
+let password="";
+
+for(let i=0;i<12;i++){
+password+=chars[Math.floor(Math.random()*chars.length)];
+}
+
+document.getElementById("result").innerText=password;
+
+}
+
+</script>
 
 </body>
 </html>
-<h2>About My Website</h2>
-<p>This is my first website made from my phone.</p>

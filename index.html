@@ -1,61 +1,159 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cyber Tools</title>
+<title>Ultimate Cyber Tools</title>
 
 <style>
+
 body{
 background:#000;
 color:#00ff9c;
 font-family:monospace;
 text-align:center;
-padding:40px;
+}
+
+h1{
+margin-top:30px;
+}
+
+.tools{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
 }
 
 .tool{
 background:#111;
-padding:20px;
-margin:20px;
 border:1px solid #00ff9c;
 border-radius:10px;
+padding:20px;
+width:250px;
 }
 
 button{
-padding:10px;
-margin:10px;
+padding:8px 15px;
+margin-top:10px;
 cursor:pointer;
 }
 
 input,textarea{
-padding:10px;
-width:80%;
+width:90%;
+padding:8px;
+margin-top:10px;
 }
-</style>
 
+</style>
 </head>
 
 <body>
 
-<h1>Cyber Tools Hub</h1>
+<h1>Ultimate Cyber Tools</h1>
+
+<div class="tools">
 
 <div class="tool">
-<h2>Password Generator</h2>
+<h3>Password Generator</h3>
 <button onclick="genPass()">Generate</button>
 <p id="pass"></p>
 </div>
 
 <div class="tool">
-<h2>Random Number</h2>
+<h3>Random Number</h3>
 <button onclick="rand()">Generate</button>
 <p id="num"></p>
 </div>
 
 <div class="tool">
-<h2>Text Uppercase</h2>
-<textarea id="text"></textarea>
-<br>
+<h3>Word Counter</h3>
+<textarea id="wordtext"></textarea>
+<button onclick="countWords()">Count</button>
+<p id="wordresult"></p>
+</div>
+
+<div class="tool">
+<h3>Character Counter</h3>
+<textarea id="chartext"></textarea>
+<button onclick="countChar()">Count</button>
+<p id="charresult"></p>
+</div>
+
+<div class="tool">
+<h3>Uppercase Converter</h3>
+<input id="uppertext">
 <button onclick="upper()">Convert</button>
-<p id="result"></p>
+<p id="upperresult"></p>
+</div>
+
+<div class="tool">
+<h3>Lowercase Converter</h3>
+<input id="lowertext">
+<button onclick="lower()">Convert</button>
+<p id="lowerresult"></p>
+</div>
+
+<div class="tool">
+<h3>Reverse Text</h3>
+<input id="revtext">
+<button onclick="reverse()">Reverse</button>
+<p id="revresult"></p>
+</div>
+
+<div class="tool">
+<h3>Remove Spaces</h3>
+<input id="spacetext">
+<button onclick="removespace()">Remove</button>
+<p id="spaceresult"></p>
+</div>
+
+<div class="tool">
+<h3>Random Color</h3>
+<button onclick="color()">Generate</button>
+<p id="colorresult"></p>
+</div>
+
+<div class="tool">
+<h3>Current Time</h3>
+<button onclick="showtime()">Show</button>
+<p id="timeresult"></p>
+</div>
+
+<div class="tool">
+<h3>Repeat Text</h3>
+<input id="repeattext">
+<button onclick="repeat()">Repeat</button>
+<p id="repeatresult"></p>
+</div>
+
+<div class="tool">
+<h3>Number Sum</h3>
+<input id="num1" placeholder="Number 1">
+<input id="num2" placeholder="Number 2">
+<button onclick="sum()">Add</button>
+<p id="sumresult"></p>
+</div>
+
+<div class="tool">
+<h3>Square Number</h3>
+<input id="sq">
+<button onclick="square()">Calculate</button>
+<p id="sqresult"></p>
+</div>
+
+<div class="tool">
+<h3>Random Emoji</h3>
+<button onclick="emoji()">Generate</button>
+<p id="emojiresult"></p>
+</div>
+
+<div class="tool">
+<h3>Text Length</h3>
+<input id="len">
+<button onclick="length()">Check</button>
+<p id="lenresult"></p>
+</div>
+
 </div>
 
 <script>
@@ -73,9 +171,70 @@ function rand(){
 document.getElementById("num").innerText=Math.floor(Math.random()*1000);
 }
 
+function countWords(){
+let text=document.getElementById("wordtext").value;
+let words=text.trim().split(/\s+/).length;
+document.getElementById("wordresult").innerText="Words: "+words;
+}
+
+function countChar(){
+let text=document.getElementById("chartext").value;
+document.getElementById("charresult").innerText="Characters: "+text.length;
+}
+
 function upper(){
-let t=document.getElementById("text").value;
-document.getElementById("result").innerText=t.toUpperCase();
+let t=document.getElementById("uppertext").value;
+document.getElementById("upperresult").innerText=t.toUpperCase();
+}
+
+function lower(){
+let t=document.getElementById("lowertext").value;
+document.getElementById("lowerresult").innerText=t.toLowerCase();
+}
+
+function reverse(){
+let t=document.getElementById("revtext").value;
+document.getElementById("revresult").innerText=t.split("").reverse().join("");
+}
+
+function removespace(){
+let t=document.getElementById("spacetext").value;
+document.getElementById("spaceresult").innerText=t.replace(/\s/g,'');
+}
+
+function color(){
+let c='#'+Math.floor(Math.random()*16777215).toString(16);
+document.getElementById("colorresult").innerText=c;
+}
+
+function showtime(){
+document.getElementById("timeresult").innerText=new Date().toLocaleTimeString();
+}
+
+function repeat(){
+let t=document.getElementById("repeattext").value;
+document.getElementById("repeatresult").innerText=t+t+t;
+}
+
+function sum(){
+let a=parseInt(document.getElementById("num1").value)||0;
+let b=parseInt(document.getElementById("num2").value)||0;
+document.getElementById("sumresult").innerText=a+b;
+}
+
+function square(){
+let n=document.getElementById("sq").value;
+document.getElementById("sqresult").innerText=n*n;
+}
+
+function emoji(){
+let e=["😀","😂","🔥","😎","🚀","💻"];
+document.getElementById("emojiresult").innerText=e[Math.floor(Math.random()*e.length)];
+}
+
+function length(){
+let t=document.getElementById("len").value;
+document.getElementById("lenresult").innerText=t.length;
 }
 
 </script>

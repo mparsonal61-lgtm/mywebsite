@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ultimate Cyber Tools</title>
+
+<title>Cyber Tools Hub</title>
 
 <style>
 
@@ -13,17 +14,8 @@ text-align:center;
 margin:0;
 }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
 h1{
-margin-top:30px;
+padding:20px;
 }
 
 .tools{
@@ -39,11 +31,11 @@ background:#111;
 border:1px solid #00ff9c;
 border-radius:10px;
 padding:20px;
-width:250px;
+width:260px;
 }
 
 button{
-padding:8px 15px;
+padding:8px 14px;
 margin-top:10px;
 cursor:pointer;
 }
@@ -51,187 +43,141 @@ cursor:pointer;
 input,textarea{
 width:90%;
 padding:8px;
-margin-top:10px;
+margin-top:8px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<canvas id="matrix"></canvas>
-
-<h1>Ultimate Cyber Tools</h1>
+<h1>Cyber Tools Hub</h1>
 
 <div class="tools">
 
 <div class="tool">
 <h3>Password Generator</h3>
-<button onclick="genPass()">Generate</button>
+<button onclick="pass()">Generate</button>
 <p id="pass"></p>
 </div>
 
 <div class="tool">
 <h3>Random Number</h3>
 <button onclick="rand()">Generate</button>
-<p id="num"></p>
+<p id="rand"></p>
 </div>
 
 <div class="tool">
 <h3>Word Counter</h3>
-<textarea id="wordtext"></textarea>
-<button onclick="countWords()">Count</button>
-<p id="wordresult"></p>
-</div>
-
-<div class="tool">
-<h3>Character Counter</h3>
-<textarea id="chartext"></textarea>
-<button onclick="countChar()">Count</button>
-<p id="charresult"></p>
+<textarea id="word"></textarea>
+<button onclick="words()">Count</button>
+<p id="wordres"></p>
 </div>
 
 <div class="tool">
 <h3>Uppercase Converter</h3>
-<input id="uppertext">
+<input id="upper">
 <button onclick="upper()">Convert</button>
-<p id="upperresult"></p>
+<p id="upperres"></p>
 </div>
 
 <div class="tool">
 <h3>Lowercase Converter</h3>
-<input id="lowertext">
+<input id="lower">
 <button onclick="lower()">Convert</button>
-<p id="lowerresult"></p>
+<p id="lowerres"></p>
 </div>
 
 <div class="tool">
 <h3>Reverse Text</h3>
-<input id="revtext">
-<button onclick="reverse()">Reverse</button>
-<p id="revresult"></p>
+<input id="rev">
+<button onclick="rev()">Reverse</button>
+<p id="revres"></p>
 </div>
 
 <div class="tool">
 <h3>Remove Spaces</h3>
-<input id="spacetext">
-<button onclick="removespace()">Remove</button>
-<p id="spaceresult"></p>
+<input id="space">
+<button onclick="space()">Remove</button>
+<p id="spaceres"></p>
+</div>
+
+<div class="tool">
+<h3>Character Counter</h3>
+<textarea id="char"></textarea>
+<button onclick="charcount()">Count</button>
+<p id="charres"></p>
 </div>
 
 <div class="tool">
 <h3>Random Color</h3>
 <button onclick="color()">Generate</button>
-<p id="colorresult"></p>
+<p id="colorres"></p>
 </div>
 
 <div class="tool">
 <h3>Current Time</h3>
-<button onclick="showtime()">Show</button>
-<p id="timeresult"></p>
+<button onclick="time()">Show</button>
+<p id="timeres"></p>
 </div>
 
 </div>
 
 <script>
 
-/* ---------- TOOLS ---------- */
-
-function genPass(){
+function pass(){
 let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-let pass="";
+let p="";
 for(let i=0;i<10;i++){
-pass+=chars[Math.floor(Math.random()*chars.length)];
+p+=chars[Math.floor(Math.random()*chars.length)];
 }
-document.getElementById("pass").innerText=pass;
+document.getElementById("pass").innerText=p;
 }
 
 function rand(){
-document.getElementById("num").innerText=Math.floor(Math.random()*1000);
+document.getElementById("rand").innerText=Math.floor(Math.random()*1000);
 }
 
-function countWords(){
-let text=document.getElementById("wordtext").value.trim();
-let words=text ? text.split(/\s+/).length : 0;
-document.getElementById("wordresult").innerText="Words: "+words;
-}
-
-function countChar(){
-let text=document.getElementById("chartext").value;
-document.getElementById("charresult").innerText="Characters: "+text.length;
+function words(){
+let t=document.getElementById("word").value.trim();
+let w=t ? t.split(/\s+/).length : 0;
+document.getElementById("wordres").innerText="Words: "+w;
 }
 
 function upper(){
-let t=document.getElementById("uppertext").value;
-document.getElementById("upperresult").innerText=t.toUpperCase();
+let t=document.getElementById("upper").value;
+document.getElementById("upperres").innerText=t.toUpperCase();
 }
 
 function lower(){
-let t=document.getElementById("lowertext").value;
-document.getElementById("lowerresult").innerText=t.toLowerCase();
+let t=document.getElementById("lower").value;
+document.getElementById("lowerres").innerText=t.toLowerCase();
 }
 
-function reverse(){
-let t=document.getElementById("revtext").value;
-document.getElementById("revresult").innerText=t.split("").reverse().join("");
+function rev(){
+let t=document.getElementById("rev").value;
+document.getElementById("revres").innerText=t.split("").reverse().join("");
 }
 
-function removespace(){
-let t=document.getElementById("spacetext").value;
-document.getElementById("spaceresult").innerText=t.replace(/\s/g,'');
+function space(){
+let t=document.getElementById("space").value;
+document.getElementById("spaceres").innerText=t.replace(/\s/g,'');
+}
+
+function charcount(){
+let t=document.getElementById("char").value;
+document.getElementById("charres").innerText="Characters: "+t.length;
 }
 
 function color(){
 let c='#'+Math.floor(Math.random()*16777215).toString(16);
-document.getElementById("colorresult").innerText=c;
+document.getElementById("colorres").innerText=c;
 }
 
-function showtime(){
-document.getElementById("timeresult").innerText=new Date().toLocaleTimeString();
+function time(){
+document.getElementById("timeres").innerText=new Date().toLocaleTimeString();
 }
-
-/* ---------- MATRIX BACKGROUND ---------- */
-
-var c=document.getElementById("matrix");
-var ctx=c.getContext("2d");
-
-c.height=window.innerHeight;
-c.width=window.innerWidth;
-
-var letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-letters=letters.split("");
-
-var font_size=14;
-var columns=c.width/font_size;
-
-var drops=[];
-for(var x=0;x<columns;x++)
-drops[x]=1;
-
-function draw(){
-
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,c.width,c.height);
-
-ctx.fillStyle="#0F0";
-ctx.font=font_size+"px monospace";
-
-for(var i=0;i<drops.length;i++){
-
-var text=letters[Math.floor(Math.random()*letters.length)];
-
-ctx.fillText(text,i*font_size,drops[i]*font_size);
-
-if(drops[i]*font_size>c.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-
-}
-
-}
-
-setInterval(draw,33);
 
 </script>
 

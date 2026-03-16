@@ -1,94 +1,206 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Free Online Tools</title>
+<title>Cyber Tools Hub</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#111;
-color:white;
+margin:0;
+font-family:monospace;
+background:black;
+color:#00ff9c;
 text-align:center;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+h1{
+margin-top:40px;
+font-size:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 padding:40px;
 }
 
 .tool{
-background:#222;
+background:#111;
+border:1px solid #00ff9c;
 padding:20px;
-margin:20px;
 border-radius:10px;
 }
 
 button{
-padding:10px 20px;
+padding:10px;
 margin:10px;
 cursor:pointer;
 }
 
 input,textarea{
+width:90%;
 padding:10px;
-width:80%;
 margin:10px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Free Online Tools</h1>
+<canvas id="matrix"></canvas>
+
+<h1>Cyber Tools Hub</h1>
+
+<div class="grid">
 
 <div class="tool">
-<h2>Password Generator</h2>
-<button onclick="genPass()">Generate Password</button>
-<p id="pass"></p>
+<h3>Password Generator</h3>
+<button onclick="pass()">Generate</button>
+<p id="p"></p>
 </div>
 
 <div class="tool">
-<h2>QR Code Generator</h2>
-<input id="qrtext" placeholder="Enter text or link">
-<br>
-<button onclick="makeQR()">Generate QR</button>
-<br>
+<h3>QR Code Generator</h3>
+<input id="qrtext">
+<button onclick="qr()">Generate</button>
 <img id="qrimg">
 </div>
 
 <div class="tool">
-<h2>Text Uppercase Converter</h2>
-<textarea id="text"></textarea>
-<br>
+<h3>Text Uppercase</h3>
+<textarea id="t1"></textarea>
 <button onclick="upper()">Convert</button>
-<p id="result"></p>
+<p id="r1"></p>
 </div>
 
 <div class="tool">
-<h2>Word Counter</h2>
-<textarea id="wordtext"></textarea>
-<br>
-<button onclick="count()">Count Words</button>
-<p id="words"></p>
+<h3>Word Counter</h3>
+<textarea id="t2"></textarea>
+<button onclick="count()">Count</button>
+<p id="r2"></p>
+</div>
+
+<div class="tool">
+<h3>Random Number</h3>
+<button onclick="rand()">Generate</button>
+<p id="r3"></p>
+</div>
+
+<div class="tool">
+<h3>Reverse Text</h3>
+<input id="rev">
+<button onclick="reverse()">Reverse</button>
+<p id="r4"></p>
+</div>
+
+<div class="tool">
+<h3>Character Counter</h3>
+<textarea id="char"></textarea>
+<button onclick="charcount()">Count</button>
+<p id="r5"></p>
+</div>
+
+<div class="tool">
+<h3>Binary Converter</h3>
+<input id="bin">
+<button onclick="binary()">Convert</button>
+<p id="r6"></p>
+</div>
+
+<div class="tool">
+<h3>Color Generator</h3>
+<button onclick="color()">Generate</button>
+<p id="r7"></p>
+</div>
+
+<div class="tool">
+<h3>Current Time</h3>
+<button onclick="time()">Show</button>
+<p id="r8"></p>
+</div>
+
 </div>
 
 <script>
 
-function genPass(){
-
-let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
-
-let pass="";
-
+function pass(){
+let c="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
+let p="";
 for(let i=0;i<12;i++){
-
-pass+=chars[Math.floor(Math.random()*chars.length)];
-
+p+=c[Math.floor(Math.random()*c.length)];
+}
+document.getElementById("p").innerText=p;
 }
 
-document.getElementById("pass").innerText=pass;
-
+function qr(){
+let t=document.getElementById("qrtext").value;
+document.getElementById("qrimg").src=
+"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+t;
 }
 
-function makeQR(){
+function upper(){
+let t=document.getElementById("t1").value;
+document.getElementById("r1").innerText=t.toUpperCase();
+}
 
-let text=document.getElementById("qrtext").value
+function count(){
+let t=document.getElementById("t2").value;
+document.getElementById("r2").innerText=t.split(" ").length;
+}
+
+function rand(){
+document.getElementById("r3").innerText=Math.floor(Math.random()*1000);
+}
+
+function reverse(){
+let t=document.getElementById("rev").value;
+document.getElementById("r4").innerText=t.split("").reverse().join("");
+}
+
+function charcount(){
+let t=document.getElementById("char").value;
+document.getElementById("r5").innerText=t.length;
+}
+
+function binary(){
+let t=document.getElementById("bin").value;
+document.getElementById("r6").innerText=
+t.split("").map(x=>x.charCodeAt(0).toString(2)).join(" ");
+}
+
+function color(){
+let c="#"+Math.floor(Math.random()*16777215).toString(16);
+document.getElementById("r7").innerText=c;
+document.body.style.background=c;
+}
+
+function time(){
+document.getElementById("r8").innerText=new Date().toLocaleTimeString();
+}
+
+let c=document.getElementById("matrix");
+let ctx=c.getContext("2d");
+
+c.height=window.innerHeight;
+c.width=window.innerWidth;
+
+let letters="01";
+letters=letters.split("");
+
+let font=14;
+let col=c.width/font;
+
+let drop=[];
+for(let i=0;i<col;i++) drop[i]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0

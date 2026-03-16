@@ -1,53 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Password Generator</title>
+<title>Free Online Tools</title>
 
 <style>
+
 body{
 font-family:Arial;
-text-align:center;
 background:#111;
 color:white;
-padding-top:100px;
+text-align:center;
+padding:40px;
+}
+
+.tool{
+background:#222;
+padding:20px;
+margin:20px;
+border-radius:10px;
 }
 
 button{
 padding:10px 20px;
-font-size:18px;
+margin:10px;
 cursor:pointer;
 }
+
+input,textarea{
+padding:10px;
+width:80%;
+margin:10px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h1>Password Generator Tool</h1>
+<h1>Free Online Tools</h1>
 
-<p>Click button to generate strong password</p>
+<div class="tool">
+<h2>Password Generator</h2>
+<button onclick="genPass()">Generate Password</button>
+<p id="pass"></p>
+</div>
 
-<button onclick="generate()">Generate Password</button>
+<div class="tool">
+<h2>QR Code Generator</h2>
+<input id="qrtext" placeholder="Enter text or link">
+<br>
+<button onclick="makeQR()">Generate QR</button>
+<br>
+<img id="qrimg">
+</div>
 
-<h2 id="result"></h2>
+<div class="tool">
+<h2>Text Uppercase Converter</h2>
+<textarea id="text"></textarea>
+<br>
+<button onclick="upper()">Convert</button>
+<p id="result"></p>
+</div>
+
+<div class="tool">
+<h2>Word Counter</h2>
+<textarea id="wordtext"></textarea>
+<br>
+<button onclick="count()">Count Words</button>
+<p id="words"></p>
+</div>
 
 <script>
 
-function generate(){
+function genPass(){
 
 let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%";
 
-let password="";
+let pass="";
 
 for(let i=0;i<12;i++){
-password+=chars[Math.floor(Math.random()*chars.length)];
-}
 
-document.getElementById("result").innerText=password;
+pass+=chars[Math.floor(Math.random()*chars.length)];
 
 }
 
-</script>
+document.getElementById("pass").innerText=pass;
 
-</body>
-</html>
+}
+
+function makeQR(){
+
+let text=document.getElementById("qrtext").value

@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>My First Website</title>
+<title>Hacker Style Website</title>
 
 <style>
 body{
 background:black;
-color:white;
+color:#00ff00;
+font-family:monospace;
 text-align:center;
-font-family:Arial;
+padding-top:100px;
 }
 
 h1{
-color:orange;
-font-size:40px;
+font-size:45px;
+animation: glow 2s infinite alternate;
 }
 
-p{
-font-size:20px;
+@keyframes glow{
+from{ text-shadow:0 0 10px #00ff00;}
+to{ text-shadow:0 0 30px #00ff00;}
+}
+
+button{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+padding:10px 20px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#00ff00;
+color:black;
 }
 </style>
 
@@ -25,8 +41,13 @@ font-size:20px;
 
 <body>
 
-<h1>Welcome To My Website 🚀</h1>
-<p>This website is made from my phone.</p>
+<h1>WELCOME TO MY WEBSITE</h1>
+
+<p>This site is created from my phone 🚀</p>
+
+<button onclick="alert('Hello from my website!')">
+Click Me
+</button>
 
 </body>
 </html>

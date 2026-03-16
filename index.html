@@ -10,6 +10,16 @@ background:#000;
 color:#00ff9c;
 font-family:monospace;
 text-align:center;
+margin:0;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
 h1{
@@ -48,6 +58,8 @@ margin-top:10px;
 </head>
 
 <body>
+
+<canvas id="matrix"></canvas>
 
 <h1>Ultimate Cyber Tools</h1>
 
@@ -119,44 +131,11 @@ margin-top:10px;
 <p id="timeresult"></p>
 </div>
 
-<div class="tool">
-<h3>Repeat Text</h3>
-<input id="repeattext">
-<button onclick="repeat()">Repeat</button>
-<p id="repeatresult"></p>
-</div>
-
-<div class="tool">
-<h3>Number Sum</h3>
-<input id="num1" placeholder="Number 1">
-<input id="num2" placeholder="Number 2">
-<button onclick="sum()">Add</button>
-<p id="sumresult"></p>
-</div>
-
-<div class="tool">
-<h3>Square Number</h3>
-<input id="sq">
-<button onclick="square()">Calculate</button>
-<p id="sqresult"></p>
-</div>
-
-<div class="tool">
-<h3>Random Emoji</h3>
-<button onclick="emoji()">Generate</button>
-<p id="emojiresult"></p>
-</div>
-
-<div class="tool">
-<h3>Text Length</h3>
-<input id="len">
-<button onclick="length()">Check</button>
-<p id="lenresult"></p>
-</div>
-
 </div>
 
 <script>
+
+/* ---------- TOOLS ---------- */
 
 function genPass(){
 let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -172,8 +151,8 @@ document.getElementById("num").innerText=Math.floor(Math.random()*1000);
 }
 
 function countWords(){
-let text=document.getElementById("wordtext").value;
-let words=text.trim().split(/\s+/).length;
+let text=document.getElementById("wordtext").value.trim();
+let words=text ? text.split(/\s+/).length : 0;
 document.getElementById("wordresult").innerText="Words: "+words;
 }
 
@@ -211,46 +190,8 @@ function showtime(){
 document.getElementById("timeresult").innerText=new Date().toLocaleTimeString();
 }
 
-function repeat(){
-let t=document.getElementById("repeattext").value;
-document.getElementById("repeatresult").innerText=t+t+t;
-}
+/* ---------- MATRIX BACKGROUND ---------- */
 
-function sum(){
-let a=parseInt(document.getElementById("num1").value)||0;
-let b=parseInt(document.getElementById("num2").value)||0;
-document.getElementById("sumresult").innerText=a+b;
-}
-
-function square(){
-let n=document.getElementById("sq").value;
-document.getElementById("sqresult").innerText=n*n;
-}
-
-function emoji(){
-let e=["😀","😂","🔥","😎","🚀","💻"];
-document.getElementById("emojiresult").innerText=e[Math.floor(Math.random()*e.length)];
-}
-
-function length(){
-let t=document.getElementById("len").value;
-document.getElementById("lenresult").innerText=t.length;
-}
-
-</script>
-
-</body>
-</html>
-<canvas id="matrix"></canvas>
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-background:black;
-}
 var c=document.getElementById("matrix");
 var ctx=c.getContext("2d");
 
@@ -264,7 +205,6 @@ var font_size=14;
 var columns=c.width/font_size;
 
 var drops=[];
-
 for(var x=0;x<columns;x++)
 drops[x]=1;
 
@@ -286,9 +226,14 @@ if(drops[i]*font_size>c.height && Math.random()>0.975)
 drops[i]=0;
 
 drops[i]++;
+
 }
 
 }
 
 setInterval(draw,33);
-  
+
+</script>
+
+</body>
+</html>
